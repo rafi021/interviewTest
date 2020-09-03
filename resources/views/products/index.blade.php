@@ -69,8 +69,8 @@
                                     @endforeach
                                     <dd class="col-sm-9">
                                         <dl class="row mb-0">
-                                            <dt class="col-sm-4 pb-0">Price : {{ $product_prices->price }} {{ number_format(200,2) }}</dt>
-                                            <dd class="col-sm-8 pb-0">InStock :{{ $product_prices->stock }} {{ number_format(50,2) }}</dd>
+                                            <dt class="col-sm-4 pb-0">Price : {{ $product_prices }} {{ number_format(200,2) }}</dt>
+                                            <dd class="col-sm-8 pb-0">InStock :{{ $product_prices }} {{ number_format(50,2) }}</dd>
                                         </dl>
                                     </dd>
                                 </dl>
@@ -84,7 +84,7 @@
                         </tr>
                         @endforeach
                     </tbody>
-
+                    {{ $products->links() }}
                 </table>
             </div>
 
@@ -93,7 +93,7 @@
         <div class="card-footer">
             <div class="row justify-content-between">
                 <div class="col-md-6">
-                    <p>{{ $products->links() }}</p>
+                    <p>Showing 1 to 2 out of 7</p>
                 </div>
                 <div class="col-md-2">
 
