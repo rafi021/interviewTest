@@ -61,7 +61,7 @@
                             <td>
                                 <dl class="row mb-0" style="height: 80px; overflow: hidden" id="variant">
 
-                                    @foreach ($product_variant as $variant)
+                                    @foreach ($product_variants as $variant)
                                     {{ $variant }}
                                     <dt class="col-sm-3 pb-0">
                                         {{ $variant->variant }}/ Red/ V-Nick
@@ -69,8 +69,8 @@
                                     @endforeach
                                     <dd class="col-sm-9">
                                         <dl class="row mb-0">
-                                            <dt class="col-sm-4 pb-0">Price : {{ $product->variants_price }} {{ number_format(200,2) }}</dt>
-                                            <dd class="col-sm-8 pb-0">InStock : {{ number_format(50,2) }}</dd>
+                                            <dt class="col-sm-4 pb-0">Price : {{ $product_prices->price }} {{ number_format(200,2) }}</dt>
+                                            <dd class="col-sm-8 pb-0">InStock :{{ $product_prices->stock }} {{ number_format(50,2) }}</dd>
                                         </dl>
                                     </dd>
                                 </dl>

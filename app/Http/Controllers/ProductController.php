@@ -21,13 +21,16 @@ class ProductController extends Controller
     public function index()
     {
         // make a list view of products
-        $products = Product::with(['product_variants', 'variants_price'])->latest()->paginate(15);
+        $products = Product::paginate(15);
         foreach ($products as $product) {
-            $product_variant = ProductVariant::where('product_id', $product->id)->get();
+            $product_variants = ProductVariant::where('product_id', $product->id)->get();
+            $product_prices = ProductVariantPrice::where('product_id', $product->id)->get();
         }
+        
         return view('products.index',[
             'products' => $products,
-            'product_variant' => $product_variant,
+            'product_variants' => $product_variants,
+            'product_prices' => $product_prices,
         ]);
     }
 
