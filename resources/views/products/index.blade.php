@@ -53,15 +53,16 @@
                     <tbody>
                         
                         @foreach ($products as $product)
-                        {{ $product }}
+                        {{-- {{ $product }} --}}
                         <tr>
                             <td>{{ $product->id }}</td>
                             <td>{{ $product->title }}<br> Created at : {{ $product->created_at->format('d-m-y') }}</td>
                             <td>{{ $product->description }}</td>
                             <td>
                                 <dl class="row mb-0" style="height: 80px; overflow: hidden" id="variant">
-    
-                                    @foreach ($product->product_variants as $variant)
+
+                                    @foreach ($product_variant as $variant)
+                                    {{ $variant }}
                                     <dt class="col-sm-3 pb-0">
                                         {{ $variant->variant }}/ Red/ V-Nick
                                     </dt>
@@ -82,8 +83,6 @@
                             </td>
                         </tr>
                         @endforeach
-
-
                     </tbody>
 
                 </table>
@@ -94,7 +93,7 @@
         <div class="card-footer">
             <div class="row justify-content-between">
                 <div class="col-md-6">
-                    <p>Showing 1 to 10 out of 100</p>
+                    <p>{{ $products->links() }}</p>
                 </div>
                 <div class="col-md-2">
 

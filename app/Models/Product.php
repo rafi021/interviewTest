@@ -17,7 +17,7 @@ class Product extends Model
 
     public function variants_price()
     {
-        return $this->hasManyThrough(Product::class,ProductVariant::class, 'product_id', 'id', 'product_id','variant_id');
+        return $this->hasManyThrough(Product::class,ProductVariantPrice::class, 'product_id', 'id', 'product_id','product_id');
     }
 
 
