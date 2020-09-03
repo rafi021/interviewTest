@@ -20,7 +20,11 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return view('products.index');
+        // make a list view of products
+        $products = Product::with(['product_variants', 'variants_price'])->get();
+        return view('products.index',[
+            'products' => $products,
+        ]);
     }
 
     /**
@@ -42,52 +46,53 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        // Product Insert
-        $product_id = Product::insertGetId([
-            'title' => $request->input('title'),
-            'sku' => $request->input('sku'),
-            'description' => $request->input('description'),
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now(), // if need
-        ]);
+        dd($request->all(), $request->file('product_image'));
+        // // Product Insert
+        // $product_id = Product::insertGetId([
+        //     'title' => $request->input('title'),
+        //     'sku' => $request->input('sku'),
+        //     'description' => $request->input('description'),
+        //     'created_at' => Carbon::now(),
+        //     'updated_at' => Carbon::now(), // if need
+        // ]);
 
-        // Insert into Product varient
-        foreach ($request->product_variant as $singel_variant) {
-            # code...
-        }
-        ProductVariant::insert([
-            'variant_id' => Variant::find($singel_variant['option'])->id,
-            'variant' => Variant::find($singel_variant['option'])->title,
-            'product_id' => $product_id,
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now(), // if need
-        ]);
+        // // Insert into Product varient
+        // foreach ($request->product_variant as $singel_variant) {
+        //     # code...
+        // }
+        // ProductVariant::insert([
+        //     'variant_id' => Variant::find($singel_variant['option'])->id,
+        //     'variant' => Variant::find($singel_variant['option'])->title,
+        //     'product_id' => $product_id,
+        //     'created_at' => Carbon::now(),
+        //     'updated_at' => Carbon::now(), // if need
+        // ]);
 
 
 
-        // Image Upload
-        $file_name = $request->product_image;
-        if($file_name){
-            $position = strpos($file_name);
-            $sub = substr($file_name, 0, $position);
-            $file_ext = explode('/', $sub)[1];
-            $name = time().'.'.$file_ext;
-            $img = Image::make($file_name)->resize(480,400);
-            $upload_path = 'photos/product';
-            $image_url = $upload_path.$name;
-            $img->save($image_url);
+        // // Image Upload
+        // $file_name = $request->product_image;
+        // if($file_name){
+        //     $position = strpos($file_name);
+        //     $sub = substr($file_name, 0, $position);
+        //     $file_ext = explode('/', $sub)[1];
+        //     $name = time().'.'.$file_ext;
+        //     $img = Image::make($file_name)->resize(480,400);
+        //     $upload_path = 'photos/product';
+        //     $image_url = $upload_path.$name;
+        //     $img->save($image_url);
 
-            ProductImage::insert([
-                'product_id' => $product_id,
-                'file_path' => $image_url,
-                'thumbnail' => $img,
-            ]);
-        }
+        //     ProductImage::insert([
+        //         'product_id' => $product_id,
+        //         'file_path' => $image_url,
+        //         'thumbnail' => $img,
+        //     ]);
+        // }
 
-        return response()->json([
-            'type' => 'Stored',
-            'message' => 'Data stored',
-        ],200);
+        // return response()->json([
+        //     'type' => 'Stored',
+        //     'message' => 'Data stored',
+        // ],200);
     }
 
 
@@ -123,7 +128,7 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        dd($request->all(), $request->file('product_image'));
+       
         // // Product Insert
         // $product->update([
         //     'title' => $request->input('title'),
@@ -135,7 +140,7 @@ class ProductController extends Controller
 
         // // Insert into Product varient
         // foreach ($request->product_variant as $singel_variant) {
-        //     # code...
+            
         // }
         // $product_variant = ProductVariant::where('product_id', $product->id)->first();
         // $product_variant->update([

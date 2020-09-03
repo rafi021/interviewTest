@@ -10,4 +10,8 @@ class Variant extends Model
         'title', 'description'
     ];
 
+    public function product()
+    {
+        return $this->belongsTo('App\Product');
+    }
 }
